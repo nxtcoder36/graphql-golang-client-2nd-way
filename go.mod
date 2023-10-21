@@ -1,4 +1,4 @@
-module github.com/nxtCoder36/graphql-golang-client
+module github.com/nxtCoder36/graphql-golang-client-2nd-way
 
 go 1.21.1
 
