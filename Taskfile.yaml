@@ -1,0 +1,8 @@
+version: 3
+
+tasks:
+  client:run:
+    dotenv:
+      - .secrets/env
+    cmds:
+      - go run main.go

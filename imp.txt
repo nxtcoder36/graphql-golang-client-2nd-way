@@ -1,0 +1,62 @@
+server:
+
+https://graphql.org/code/  # get graphql dependencies from here
+
+Ex1:- git clone git@github.com:howtographql/graphql-golang.git(https://www.howtographql.com/graphql-go/0-introduction/)
+
+Ex2:- git clone git@github.com:rahul-yr/learn-go-graphql.git(https://levelup.gitconnected.com/develop-a-todo-graphql-server-in-golang-2bc6ecae1463)
+
+go get github.com/graphql-go/graphql (used graphql for go in this project)
+
+go get -u github.com/gin-gonic/gin
+Gin is a web framework written in Go. It features a martini-like API with performance that is up to 40 times faster thanks to httprouter. If you need performance and good productivity, you will love Gin.
+
+Gin middleware/handler to enable CORS support.
+go get github.com/gin-contrib/cors
+
+From postman:
+select the body as graphql
+if query
+query{
+    todos{
+        id,
+        completed,
+        title
+    }
+}
+if mutation
+mutation {
+    addTodo(title:"Reading"){
+        id,
+        title,
+        completed
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------
+client:
+
+go get github.com/99designs/gqlgen
+gqlgen is a Go library for building GraphQL servers without any fuss.
+
+add gqlgen to your project’s tools.go
+printf '// +build tools\npackage tools\nimport _ "github.com/99designs/gqlgen"' | gofmt > tools.go
+go mod tidy
+
+create a .graphql file that defines your schema.
+
+go run github.com/99designs/gqlgen generate
+Use gqlgen to generate Go code based on your schema
+
+cmds: ref(https://www.apollographql.com/blog/graphql/golang/using-graphql-with-golang/)
+  go get github.com/99designs/gqlgen
+  printf '// +build tools\npackage tools\nimport _ "github.com/99designs/gqlgen"' | gofmt > tools.go
+  go mod tidy
+  go run github.com/99designs/gqlgen init
+  //go run github.com/99designs/gqlgen generate (first define the schema and delete all in schema.resolvers.go)
+
+should not modify either of those files(generated.go and model/models_gen.go) since they will be modified by gqlgen as you update your schema.
+
+modify below files:
+schema.graphqls: a GraphQL schema file where types, queries, and mutations are defined. The schema file uses schema-definition-language (SDL) to describe data types
+and operations (queries/mutations) in a human-readable way.
+schema.resolvers.go: a go file with wrapper code for queries and mutations defined in schema.graphqls
